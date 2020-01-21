@@ -57,9 +57,4 @@ What's is it?
 
 * TODO
 
-Principles:
-~~~~~~~~~~~
-
-* TODO
-
 .. _docs: https://hypothesis-torch.readthedocs.io
