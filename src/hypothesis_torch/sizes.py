@@ -1,7 +1,7 @@
 from typing import Any
 
 from hypothesis import strategies as st
-from hypothesis.strategies._internal.core import cacheable, defines_strategy_with_reusable_values
+from hypothesis.strategies._internal.core import cacheable
 
 from hypothesis.errors import InvalidArgument
 
@@ -30,7 +30,6 @@ class DimStrategy(st.SearchStrategy[int]):
 
 
 @cacheable
-@defines_strategy_with_reusable_values
 def dims(min_size: int = 1, max_size: int = 1000) -> DimStrategy:
     """Strategy for generating variable sized dims
 
