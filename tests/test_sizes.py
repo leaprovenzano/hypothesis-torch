@@ -1,10 +1,17 @@
 from typing import Any
+import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from hypothesis_torch.sizes import is_valid_dim
+from hypothesis_torch.sizes import is_valid_dim, dims, InvalidArgument
 
 from tests.utils import param, mark_params
+
+
+def drawif(data, value):
+    if isinstance(value, st.SearchStrategy):
+        return data.draw(value)
+    return value
 
 
 @mark_params
@@ -15,3 +22,22 @@ from tests.utils import param, mark_params
 def test_is_valid_dim(data, inp: Any, expected: bool):
     drawn = data.draw(inp)
     assert is_valid_dim(drawn) is expected
+
+
+@mark_params
+@param(
+    tag='min_size > max_size', min_size=10, max_size=9, expected_msg='min_size must be < max_size'
+)
+@param(
+    tag='min_size < 1',
+    min_size=st.integers(max_value=0),
+    max_size=1000,
+    expected_msg='min_size must be an integer greater than 0',
+)
+@given(data=st.data())
+def test_dim_strategy_invalid_init(data, min_size, max_size, expected_msg):
+    min_size = drawif(data, min_size)
+    max_size = drawif(data, max_size)
+    print(min_size, max_size)
+    with pytest.raises(InvalidArgument, match=expected_msg):
+        dims(min_size, max_size)
