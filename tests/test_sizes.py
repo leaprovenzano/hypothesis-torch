@@ -41,3 +41,17 @@ def test_dim_strategy_invalid_init(data, min_size, max_size, expected_msg):
     print(min_size, max_size)
     with pytest.raises(InvalidArgument, match=expected_msg):
         dims(min_size, max_size)
+
+
+@given(dim=dims(10, 100))
+def test_dim_strat_valid_init(dim):
+    assert isinstance(dim, int)
+    assert dim >= 10
+    assert dim <= 100
+
+
+@given(dim=dims())
+def test_dim_strat_with_default_init(dim):
+    assert isinstance(dim, int)
+    assert dim >= 1
+    assert dim <= 1000
