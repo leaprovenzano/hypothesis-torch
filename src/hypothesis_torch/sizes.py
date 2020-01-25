@@ -23,7 +23,7 @@ class DimStrategy(st.SearchStrategy[int]):
         self._inner_strat = st.integers(self.min_size, self.max_size)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(min_size, max_size={self.max_size})"
+        return f'{self.__class__.__name__}(min_size, max_size={self.max_size})'
 
     def do_draw(self, data) -> int:
         return data.draw(self._inner_strat)
@@ -44,9 +44,9 @@ def dims(min_size: int = 1, max_size: int = 1000) -> DimStrategy:
         9
     """
     if not is_valid_dim(min_size):
-        raise InvalidArgument("min_size must be an integer greater than 0")
+        raise InvalidArgument('min_size must be an integer greater than 0')
     if not is_valid_dim(max_size):
-        raise InvalidArgument("max_size must be an integer greater than 0")
+        raise InvalidArgument('max_size must be an integer greater than 0')
     if min_size > max_size:
-        raise InvalidArgument("min_size must be an < max_size")
+        raise InvalidArgument('min_size must be < max_size')
     return DimStrategy(min_size, max_size)

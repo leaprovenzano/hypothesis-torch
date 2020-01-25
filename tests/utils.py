@@ -7,7 +7,7 @@ def mark_params(f):
 
 def param(tag=None, **kwargs):
     def wrapper(f):
-        seen = hasattr(f, "_argnames") and hasattr(f, "_params")
+        seen = hasattr(f, '_argnames') and hasattr(f, '_params')
         if not seen:
             f._argnames = tuple(kwargs)
             f._params = []
@@ -16,4 +16,3 @@ def param(tag=None, **kwargs):
         return f
 
     return wrapper
-

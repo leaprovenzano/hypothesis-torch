@@ -8,9 +8,9 @@ from tests.utils import param, mark_params
 
 
 @mark_params
-@param(tag="ints < 1", inp=st.integers(max_value=0), expected=False)
-@param(tag="floats", inp=st.floats(max_value=0), expected=False)
-@param(tag="ints >= 1", inp=st.floats(min_value=1), expected=False)
+@param(tag='ints < 1', inp=st.integers(max_value=0), expected=False)
+@param(tag='floats', inp=st.floats(max_value=0), expected=False)
+@param(tag='ints >= 1', inp=st.floats(min_value=1), expected=False)
 @given(data=st.data())
 def test_is_valid_dim(data, inp: Any, expected: bool):
     drawn = data.draw(inp)
