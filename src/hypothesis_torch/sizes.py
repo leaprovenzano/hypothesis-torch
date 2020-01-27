@@ -75,6 +75,7 @@ def dims(min_size: int = 1, max_size: int = 1000) -> DimStrategy:
     return DimStrategy(min_size, max_size)
 
 
+@cacheable
 def sizes(*dims: Sequence[Union[int, DimStrategy]]) -> SizeStrategy:
     """A strategy for creating torch.Size objects
 
@@ -99,10 +100,10 @@ def sizes(*dims: Sequence[Union[int, DimStrategy]]) -> SizeStrategy:
         or use with no arguments to get any old sizes with variable dims...
         >>> variable_dim_strat = sizes()
         >>> variable_dim_strat.example()
-        torch.Size([46, 415, 809, 788])
+        torch.Size([5, 2, 4, 4])
     """
     if not dims:
-        return SizeStrategy(st.lists(st.integers(1, 1000), min_size=1, max_size=10))
+        return SizeStrategy(st.lists(st.integers(1, 10), min_size=1, max_size=10))
     else:
         dim_strats = []
         for d in dims:
