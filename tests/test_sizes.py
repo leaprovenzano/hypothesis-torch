@@ -1,9 +1,13 @@
 from typing import Any
+
+import torch
+
 import pytest
+
 from hypothesis import given
 from hypothesis import strategies as st
 
-from hypothesis_torch.sizes import is_valid_dim, dims, InvalidArgument
+from hypothesis_torch.sizes import is_valid_dim, dims, sizes, InvalidArgument
 
 from tests.utils import param, mark_params
 
@@ -55,3 +59,9 @@ def test_dim_strat_with_default_init(dim):
     assert isinstance(dim, int)
     assert dim >= 1
     assert dim <= 1000
+
+
+@given(sizes())
+def test_sizes_with_no_args(size):
+    assert isinstance(size, torch.Size)
+    assert torch.zeros(size).shape == size
